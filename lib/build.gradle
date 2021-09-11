@@ -1,0 +1,27 @@
+plugins {
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation 'org.ow2.asm:asm-commons:9.2'
+    implementation 'org.ow2.asm:asm-util:9.2'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            group 'com.github.jokermonn'
+            artifactId = 'classlinker'
+            version = '0.0.1'
+
+            from components.java
+        }
+    }
+}
