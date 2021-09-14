@@ -25,14 +25,14 @@ fun main() {
                 )
             )
         )
-        .filter { it.startsWith("java/") }
+        .blockList { it.startsWith("java/") }
         .build()
         .link()
 
-//    println("wantSet: $wantSet")
-//    println("actual class loader: $actualSet")
-//    println("want exist but actual not exist: ${wantSet.subtract(actualSet)}")
-//    println("actual exist but want not exist: ${actualSet.subtract(wantSet).filter { !it.contains("$") }}")
+//    printLog("wantSet: $wantSet")
+//    printLog("actual class loader: $actualSet")
+//    printLog("want exist but actual not exist: ${wantSet.subtract(actualSet)}")
+//    printLog("actual exist but want not exist: ${actualSet.subtract(wantSet).filter { !it.contains("$") }}")
 }
 
 private fun logClassLoader(block: () -> Unit): Set<String> {

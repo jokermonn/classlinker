@@ -8,6 +8,7 @@ import com.joker.codelinker.util.TraceSignatureVisitor2
 import com.joker.codelinker.util.containsAllMethods
 import com.joker.codelinker.util.isClinitMethod
 import com.joker.codelinker.util.isStatic
+import com.joker.codelinker.util.printLog
 import org.objectweb.asm.signature.SignatureReader
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.FieldInsnNode
@@ -53,13 +54,13 @@ internal class ClzNode(api: Int) : ClassNode(api) {
     private fun analyseMethods(methods: List<MethodNode>, linkerConfig: LinkerConfig) {
         val clzName = name
         methods.forEach {
-            println("================method start: $clzName ${it.name}${it.desc} ================")
+            printLog("================method start: $clzName ${it.name}${it.desc} ================")
             analyseInstructions(it.instructions, linkerConfig)
             analyseLocalVariables(it.localVariables, linkerConfig)
             analyseMethodDescriptor(it.desc, linkerConfig)
             analyseExceptions(it.exceptions, linkerConfig)
             analyseTryCatchBlocks(it.tryCatchBlocks, linkerConfig)
-            println("================method end: $clzName ${it.name}${it.desc} ================")
+            printLog("================method end: $clzName ${it.name}${it.desc} ================")
         }
     }
 

@@ -5,10 +5,12 @@ import com.joker.codelinker.model.METHODS_ALL
 import com.joker.codelinker.model.METHODS_CLINIT
 import com.joker.codelinker.model.Method
 import com.joker.codelinker.model.NoSuchMethod
+import com.joker.codelinker.util.printLog
 import java.util.LinkedList
 
 class LinkerConfig {
-    internal var filterBlock: (String) -> Boolean = { false }
+    internal var blockList: ((String) -> Boolean)? = null
+    internal var whiteList: ((String) -> Boolean)? = null
 
     internal val noSuchMethods: MutableList<NoSuchMethod> = arrayListOf()
 
@@ -30,7 +32,7 @@ class LinkerConfig {
 
     internal fun addMethod(clzMethod: ClzMethod) {
         val clzName = clzMethod.className
-        if (filterBlock.invoke(clzName)) {
+        if (blockList?.invoke(clzName) == true || whiteList?.invoke(clzName) == false) {
             return
         }
         if (recordSet.contains(ClzMethod(clzName, METHODS_ALL))) {
@@ -43,7 +45,7 @@ class LinkerConfig {
             noSuchMethods.removeIf { it.clzName == clzMethod.startClzName }
         }
         recordSet.add(clzMethod)
-        println("clzMethods add: $clzMethod")
+        printLog("clzMethods add: $clzMethod")
         clzMethods.add(clzMethod)
     }
 }
